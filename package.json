@@ -1,0 +1,23 @@
+{
+  "name": "gw2-raid-builds",
+  "version": "1.0.0",
+  "description": "based on https://docs.google.com/spreadsheets/d/e/2PACX-1vQWTWKHbcL3dnoBvGBLgCCraiyNB1h14a_ibH8YS_2dq2WxgZKSJMbEEvV_GnpqMZyKccHtyZVx8ho6/pubhtml#",
+  "main": "format.js",
+  "scripts": {
+    "start": "node format.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuwuM/gw2-raid-builds.git"
+  },
+  "author": "MuwuM",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/MuwuM/gw2-raid-builds/issues"
+  },
+  "homepage": "https://github.com/MuwuM/gw2-raid-builds#readme",
+  "dependencies": {
+    "fs-extra": "^10.0.1"
+  }
+}
