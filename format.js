@@ -15,7 +15,10 @@ const path = require("path");
         alac: (build.boons && typeof build.boons.alac === "number") ? build.boons.alac : false,
         quick: (build.boons && typeof build.boons.quick === "number") ? build.boons.quick : false,
         might: (build.boons && typeof build.boons.might === "number") ? build.boons.might : false,
-        fury: (build.boons && typeof build.boons.fury === "number") ? build.boons.fury : false
+        fury: (build.boons && typeof build.boons.fury === "number") ? build.boons.fury : false,
+        aegis: (build.boons && typeof build.boons.aegis === "number") ? build.boons.aegis : false,
+        regen: (build.boons && typeof build.boons.regen === "number") ? build.boons.regen : false,
+        swiftness: (build.boons && typeof build.boons.swiftness === "number") ? build.boons.swiftness : false
       },
       gw2skills: build.gw2skills || false,
       snowcrows: build.snowcrows || false,
@@ -28,6 +31,7 @@ const path = require("path");
     });
     return formatted;
   });
+  //console.log({count: formattedBuilds.length});
   await fs.outputJSON(buildsFile, formattedBuilds, {spaces: 2});
 
 })().catch((err) => {
