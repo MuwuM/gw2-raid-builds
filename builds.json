@@ -1,6 +1,6 @@
 [
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Catalyst",
     "role": "dps-power",
     "name": "Power Hammer",
@@ -24,7 +24,7 @@
     "benchOld": true
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Catalyst",
     "role": "dps-power",
     "name": "Power Staff",
@@ -48,7 +48,7 @@
     "benchOld": true
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Catalyst",
     "role": "support-boon",
     "name": "Power Quick 'Quickalist'",
@@ -72,7 +72,7 @@
     "benchOld": true
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Catalyst",
     "role": "support-heal",
     "name": "Heal/Rezz Quick",
@@ -96,7 +96,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Tempest",
     "role": "dps-condi",
     "name": "Condi Tempest",
@@ -120,7 +120,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Tempest",
     "role": "dps-power",
     "name": "Power Tempest",
@@ -144,7 +144,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Tempest",
     "role": "support-heal",
     "name": "Heal Tempest",
@@ -168,7 +168,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Weaver",
     "role": "dps-condi",
     "name": "Condi Sword",
@@ -192,7 +192,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Weaver",
     "role": "dps-condi",
     "name": "Condi Dagger",
@@ -216,7 +216,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Weaver",
     "role": "dps-hybrid",
     "name": "Hybrid Weaver",
@@ -240,7 +240,7 @@
     "benchOld": false
   },
   {
-    "class": "Elementarist",
+    "class": "Elementalist",
     "spec": "Weaver",
     "role": "dps-power",
     "name": "Power Weaver",
