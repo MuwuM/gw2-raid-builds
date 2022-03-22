@@ -901,14 +901,14 @@
       "regen": false,
       "swiftness": false
     },
-    "gw2skills": "PegAoqlJw0YwMXWMOWL5xaA-zRJYmRDfZEXC0RBo5BJImAvmUsGB-e",
+    "gw2skills": "PegAkqlxy0YwMXWMOWL5xaA-zRJYmRDfZEXC0RBo5BJI2AvmUMtB-e",
     "snowcrows": "/builds/engineer/mechanist/condition-mechanist",
     "luckynoobs": "/builds/condition-mechanist-dps",
-    "youtube": false,
-    "bench": 35824,
-    "benchWithAllies": 39659,
+    "youtube": "D_XVn26s8S4",
+    "bench": 35045,
+    "benchWithAllies": 38343,
     "benchLarge": false,
-    "benchConfusion": false,
+    "benchConfusion": 25,
     "benchOld": false
   },
   {
@@ -1813,13 +1813,13 @@
       "regen": false,
       "swiftness": false
     },
-    "gw2skills": "PWwAw2FlVwQYpsJWLW8XlRLA-zRRYwRH9W/cIoEKjKSh0rAbPIhxe4tExZE-e",
+    "gw2skills": "PWwAw2FlhyQYqsJWLO0XlRLA-zRRYBRHX%2FcQClREpQFVgnHkwYP8aowrF-e",
     "snowcrows": false,
     "luckynoobs": false,
-    "youtube": false,
-    "bench": 25113,
+    "youtube": "nJTkHlFedOI",
+    "bench": false,
     "benchWithAllies": false,
-    "benchLarge": false,
+    "benchLarge": 33569,
     "benchConfusion": false,
     "benchOld": false
   },
