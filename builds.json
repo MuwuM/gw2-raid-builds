@@ -17,11 +17,11 @@
     "snowcrows": "/builds/elementalist/catalyst/power-catalyst",
     "luckynoobs": "/builds/power-catalyst-dps",
     "youtube": false,
-    "bench": 43023,
+    "bench": 39250,
     "benchWithAllies": false,
-    "benchLarge": 44466,
+    "benchLarge": false,
     "benchConfusion": false,
-    "benchOld": true
+    "benchOld": false
   },
   {
     "class": "Elementalist",
@@ -65,11 +65,11 @@
     "snowcrows": false,
     "luckynoobs": "/builds/quickness-power-catalyst",
     "youtube": false,
-    "bench": 36746,
+    "bench": 34010,
     "benchWithAllies": false,
     "benchLarge": false,
     "benchConfusion": false,
-    "benchOld": true
+    "benchOld": false
   },
   {
     "class": "Elementalist",
