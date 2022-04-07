@@ -23,10 +23,12 @@ const path = require("path");
       gw2skills: build.gw2skills || false,
       snowcrows: build.snowcrows || false,
       luckynoobs: build.luckynoobs || false,
+      hardstuck: build.hardstuck || false,
       youtube: build.youtube || false,
       bench: typeof build.bench === "number" ? build.bench : false,
       benchWithAllies: typeof build.benchWithAllies === "number" ? build.benchWithAllies : false,
       benchLarge: typeof build.benchLarge === "number" ? build.benchLarge : false,
+      benchWithAlliesLarge: typeof build.benchWithAlliesLarge === "number" ? build.benchWithAlliesLarge : false,
       benchConfusion: typeof build.benchConfusion === "number" ? build.benchConfusion : false,
       benchOld: build.benchOld || false
     });
