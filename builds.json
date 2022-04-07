@@ -75,7 +75,7 @@
     "benchLarge": 5393,
     "benchWithAlliesLarge": false,
     "benchConfusion": false,
-    "benchOld": false
+    "benchOld": true
   },
   {
     "class": "Elementalist",
