@@ -25,6 +25,7 @@ const path = require("path");
       luckynoobs: build.luckynoobs || false,
       hardstuck: build.hardstuck || false,
       youtube: build.youtube || false,
+      oldYoutube: build.oldYoutube || [],
       bench: typeof build.bench === "number" ? build.bench : false,
       benchWithAllies: typeof build.benchWithAllies === "number" ? build.benchWithAllies : false,
       benchLarge: typeof build.benchLarge === "number" ? build.benchLarge : false,

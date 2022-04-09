@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/MuwuM/gw2-raid-builds#readme",
   "dependencies": {
-    "fs-extra": "^10.0.1"
+    "fs-extra": "^10.0.1",
+    "puppeteer": "^13.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0"
   }
 }
