@@ -6,7 +6,7 @@ const puppeteer = require("puppeteer");
   const buildsFile = path.resolve(process.cwd(), "builds.json");
   const builds = await fs.readJSON(buildsFile);
 
-  const browser = await puppeteer.launch({headless: false});
+  const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
   await page.goto("https://snowcrows.com/benchmarks", {waitUntil: "networkidle2"});
@@ -44,14 +44,23 @@ const puppeteer = require("puppeteer");
     if (matchingBuilds.length === 1 && matchingBuildsInBoth.length === 1) {
       continue;
     }
+    if (matchingBuilds.length < 1 && matchingBuildsByLink.length < 1) {
+      console.log({
+        info: "Missing/invalid sc build",
+        bench: row.benchName,
+        Yt: row.youtube,
+        ScLink: row.buildUrl
+      });
+      continue;
+    }
     if (matchingBuilds.length === 1 && matchingBuildsInBoth.length < 1) {
       const build = matchingBuilds[0];
       console.log({
         info: "Missing/invalid sc build",
         build: `${build.spec}: ${build.name}`,
         bench: row.benchName,
-        plainYt: `https://www.youtube.com/watch/${plainYt}`,
-        plainScLink,
+        Yt: row.youtube,
+        ScLink: row.buildUrl,
         oldScLink: build.snowcrows
       });
       continue;
@@ -62,7 +71,7 @@ const puppeteer = require("puppeteer");
         info: "Youtube doesn't match",
         bench: row.benchName,
         build: `${build.spec}: ${build.name}`,
-        plainYt: `https://www.youtube.com/watch/${plainYt}`,
+        ScYt: row.youtube,
         yt: `https://www.youtube.com/watch/${build.youtube}`
       });
       continue;
@@ -71,9 +80,37 @@ const puppeteer = require("puppeteer");
       bench: row.benchName,
       builds: matchingBuilds.map((b) => b.name),
       buildsLink: matchingBuildsByLink.map((b) => b.name),
-      plainYt
+      Yt: row.youtube,
+      ScLink: row.buildUrl
     });
   }
+
+  await page.goto("https://snowcrows.com/builds?profession=Any&role=Any&damage=Any&beginner=0", {waitUntil: "networkidle2"});
+
+  const fullScMetaBuildRows = await page.$$eval("#app .shadow-sm.rounded.overflow-y-hidden a", (rows) => rows.map((row) => {
+
+    const buildUrl = row.href;
+    const benchName = row.querySelector(".block.font-medium.w-52").textContent;
+    return {
+      benchName,
+      buildUrl
+    };
+  }));
+
+  for (const row of fullScMetaBuildRows) {
+    const plainScLink = row.buildUrl.replace(/^https:\/\/snowcrows\.com/, "");
+    const matchingBuildsByLink = builds.filter((b) => b.snowcrows === plainScLink);
+    if (matchingBuildsByLink.length < 1) {
+      console.log({
+        info: "Missing/invalid sc build",
+        bench: row.benchName,
+        Yt: row.youtube,
+        ScLink: row.buildUrl
+      });
+      continue;
+    }
+  }
+
 
   for (const build of builds) {
     if (!build.snowcrows) {
@@ -84,6 +121,15 @@ const puppeteer = require("puppeteer");
     if (hasBench) {
       continue;
     }
+    const isKnownBuild = fullScMetaBuildRows.find((r) => r.buildUrl === fullScLink);
+    if (isKnownBuild) {
+      continue;
+    }
+    console.log({
+      info: "SC build not listed",
+      build: `${build.spec}: ${build.name}`,
+      fullScLink
+    });
     const res = await page.goto(fullScLink, {waitUntil: "networkidle2"});
     const status = res.status();
     if (status === 200) {
@@ -92,9 +138,47 @@ const puppeteer = require("puppeteer");
 
     console.log({
       info: "missing SC build",
+      build: `${build.spec}: ${build.name}`,
       fullScLink,
       resStatus: status
     });
+  }
+
+  const lnBuildOverviewList = [
+    "https://lucky-noobs.com/klassen/warrior?category=builds",
+    "https://lucky-noobs.com/klassen/guard?category=builds",
+    "https://lucky-noobs.com/klassen/revenant?category=builds",
+    "https://lucky-noobs.com/klassen/ranger?category=builds",
+    "https://lucky-noobs.com/klassen/thief?category=builds",
+    "https://lucky-noobs.com/klassen/engineer?category=builds",
+    "https://lucky-noobs.com/klassen/elementalist?category=builds",
+    "https://lucky-noobs.com/klassen/mesmer?category=builds",
+    "https://lucky-noobs.com/klassen/necromancer?category=builds"
+  ];
+
+  for (const lnBuildOverview of lnBuildOverviewList) {
+    await page.goto(lnBuildOverview, {waitUntil: "networkidle2"});
+    const rows = await page.$$eval(".ln-subnav.ln-build-subnav li a", (rows) => rows.map((row) => {
+      const buildUrl = row.href;
+      const benchName = row.querySelector(".uk-margin-small-left").textContent;
+      return {
+        benchName,
+        buildUrl
+      };
+    }));
+
+    for (const row of rows) {
+      const plainLnLink = row.buildUrl.replace(/^https:\/\/lucky-noobs\.com/, "");
+      const matchingBuildsByLink = builds.filter((b) => b.luckynoobs === plainLnLink);
+      if (matchingBuildsByLink.length < 1) {
+        console.log({
+          info: "Missing/invalid LN build",
+          bench: row.benchName,
+          LnLink: row.buildUrl
+        });
+        continue;
+      }
+    }
   }
 
   await browser.close();
