@@ -693,7 +693,9 @@
     "luckynoobs": false,
     "hardstuck": false,
     "youtube": "-aewT19Miz8",
-    "oldYoutube": ["eCiSX3L48Sw"],
+    "oldYoutube": [
+      "eCiSX3L48Sw"
+    ],
     "bench": 41503,
     "benchWithAllies": false,
     "benchLarge": false,
@@ -773,9 +775,12 @@
     "snowcrows": "/builds/necromancer/harbinger/condition-quickness-harbinger",
     "luckynoobs": "/builds/condition-harbinger-quickness",
     "hardstuck": false,
-    "youtube": "jo-FQIS9CWA",
-    "oldYoutube": ["zcFY7nNhZwg"],
-    "bench": 33263,
+    "youtube": "VwuG_8R7pic",
+    "oldYoutube": [
+      "jo-FQIS9CWA",
+      "zcFY7nNhZwg"
+    ],
+    "bench": 32400,
     "benchWithAllies": false,
     "benchLarge": false,
     "benchWithAlliesLarge": false,
@@ -1717,7 +1722,7 @@
     "gw2skills": false,
     "snowcrows": false,
     "luckynoobs": false,
-    "hardstuck": "/gw2/builds/thief/pylon-kite-rifle-deadeye/?v=qadim-2-kiter",
+    "hardstuck": "/gw2/builds/thief/pylon-kite-rifle-deadeye/",
     "youtube": false,
     "oldYoutube": [],
     "bench": false,

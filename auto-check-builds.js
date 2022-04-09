@@ -181,6 +181,55 @@ const puppeteer = require("puppeteer");
     }
   }
 
+  const hsBuildOverviewList = [
+    "https://beta.hardstuck.gg/gw2/builds/revenant/",
+    "https://beta.hardstuck.gg/gw2/builds/elementalist/",
+    "https://beta.hardstuck.gg/gw2/builds/guardian/",
+    "https://beta.hardstuck.gg/gw2/builds/warrior/",
+    "https://beta.hardstuck.gg/gw2/builds/thief/",
+    "https://beta.hardstuck.gg/gw2/builds/ranger/",
+    "https://beta.hardstuck.gg/gw2/builds/mesmer/",
+    "https://beta.hardstuck.gg/gw2/builds/necromancer/",
+    "https://beta.hardstuck.gg/gw2/builds/engineer/"
+  ];
+
+  for (const hsBuildOverview of hsBuildOverviewList) {
+    await page.goto(hsBuildOverview, {waitUntil: "networkidle2"});
+    const rows = await page.$$eval(".gw2-build-listing.listing>a", (rows) => rows.map((row) => {
+      const buildUrl = row.href;
+      const benchName = row.querySelector(".listing-item-title>span").textContent;
+      let gameModeElem = row;
+      while (gameModeElem.previousElementSibling && gameModeElem.tagName !== "H3") {
+        gameModeElem = gameModeElem.previousElementSibling;
+      }
+      let gameMode = "unknown";
+      if (gameModeElem) {
+        gameMode = gameModeElem.textContent.replace(/\s+/g, "");
+      }
+      return {
+        benchName,
+        buildUrl,
+        gameMode
+      };
+    }));
+
+    for (const row of rows) {
+      if (row.gameMode !== "Squad") {
+        continue;
+      }
+      const plainHsLink = row.buildUrl.replace(/^https:\/\/beta\.hardstuck\.gg/, "");
+      const matchingBuildsByLink = builds.filter((b) => b.hardstuck === plainHsLink);
+      if (matchingBuildsByLink.length < 1) {
+        console.log({
+          info: "Missing/invalid HS build",
+          bench: row.benchName,
+          LnLink: row.buildUrl
+        });
+        continue;
+      }
+    }
+  }
+
   await browser.close();
 })().catch((err) => {
   console.error(err);
