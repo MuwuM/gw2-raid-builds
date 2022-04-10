@@ -192,7 +192,7 @@ const puppeteer = require("puppeteer");
         continue;
       }
       const plainHsLink = row.url.replace(/^https:\/\/beta\.hardstuck\.gg/, "");
-      const matchingBuildsByLink = builds.filter((b) => b.hardstuck === plainHsLink);
+      const matchingBuildsByLink = builds.filter((b) => typeof b.hardstuck === "string" && b.hardstuck.startsWith(plainHsLink));
       if (matchingBuildsByLink.length < 1) {
         console.log({
           info: "Missing/invalid HS build",
@@ -200,6 +200,51 @@ const puppeteer = require("puppeteer");
           LnLink: row.url
         });
         continue;
+      }
+      const variants = Object.keys(row.variants);
+      for (const variant of variants) {
+        if ([
+          "optimized",
+          "universal",
+          "flexible"
+        ].includes(variant)) {
+          continue;
+        }
+        const matchingBuildsByLink = builds.filter((b) => b.hardstuck === `${plainHsLink}?v=${variant}`);
+        if (matchingBuildsByLink.length < 1) {
+          console.log({
+            info: "Missing/invalid HS build variant",
+            bench: row.name,
+            LnLink: `${row.url}?v=${variant}`
+          });
+          continue;
+        }
+      }
+    }
+    for (const build of builds) {
+      if (typeof build.hardstuck !== "string") {
+        continue;
+      }
+      const hsUrl = new URL(build.hardstuck, "https://beta.hardstuck.gg");
+      const fullHSLink = hsUrl.href;
+      const variant = hsUrl.searchParams.get("v");
+      const stillExists = hsBuilds.find(((b) => {
+        const u = new URL(b.url, "https://beta.hardstuck.gg");
+        if (u.pathname !== hsUrl.pathname) {
+          return false;
+        }
+
+        if (variant && typeof b.variants[variant] !== "string") {
+          return false;
+        }
+        return true;
+      }));
+      if (!stillExists) {
+        console.log({
+          info: "HS build not listed",
+          build: `${build.spec}: ${build.name}`,
+          fullHSLink
+        });
       }
     }
   }
