@@ -1,6 +1,13 @@
 const fs = require("fs-extra");
 const path = require("path");
 
+function numberOrFalse(inp) {
+  return (typeof inp === "number") ? inp : false;
+}
+function stringOrFalse(inp) {
+  return (typeof inp === "string") ? inp : false;
+}
+
 (async() => {
   const buildsFile = path.resolve(process.cwd(), "builds.json");
   const builds = await fs.readJSON(buildsFile);
@@ -11,26 +18,28 @@ const path = require("path");
       spec: build.spec,
       role: build.role,
       name: build.name,
+      lowIntensity: build.lowIntensity || false,
       boons: {
-        alac: (build.boons && typeof build.boons.alac === "number") ? build.boons.alac : false,
-        quick: (build.boons && typeof build.boons.quick === "number") ? build.boons.quick : false,
-        might: (build.boons && typeof build.boons.might === "number") ? build.boons.might : false,
-        fury: (build.boons && typeof build.boons.fury === "number") ? build.boons.fury : false,
-        aegis: (build.boons && typeof build.boons.aegis === "number") ? build.boons.aegis : false,
-        regen: (build.boons && typeof build.boons.regen === "number") ? build.boons.regen : false,
-        swiftness: (build.boons && typeof build.boons.swiftness === "number") ? build.boons.swiftness : false
+        alac: numberOrFalse(build.boons && build.boons.alac),
+        quick: numberOrFalse(build.boons && build.boons.quick),
+        might: numberOrFalse(build.boons && build.boons.might),
+        fury: numberOrFalse(build.boons && build.boons.fury),
+        aegis: numberOrFalse(build.boons && build.boons.aegis),
+        regen: numberOrFalse(build.boons && build.boons.regen),
+        swiftness: numberOrFalse(build.boons && build.boons.swiftness)
       },
-      gw2skills: build.gw2skills || false,
-      snowcrows: build.snowcrows || false,
-      luckynoobs: build.luckynoobs || false,
-      hardstuck: build.hardstuck || false,
-      youtube: build.youtube || false,
-      oldYoutube: build.oldYoutube || [],
-      bench: typeof build.bench === "number" ? build.bench : false,
-      benchWithAllies: typeof build.benchWithAllies === "number" ? build.benchWithAllies : false,
-      benchLarge: typeof build.benchLarge === "number" ? build.benchLarge : false,
-      benchWithAlliesLarge: typeof build.benchWithAlliesLarge === "number" ? build.benchWithAlliesLarge : false,
-      benchConfusion: typeof build.benchConfusion === "number" ? build.benchConfusion : false,
+      gw2skills: stringOrFalse(build.gw2skills),
+      snowcrows: stringOrFalse(build.snowcrows),
+      luckynoobs: stringOrFalse(build.luckynoobs),
+      hardstuck: stringOrFalse(build.hardstuck),
+      accessibilitywars: stringOrFalse(build.accessibilitywars),
+      youtube: stringOrFalse(build.youtube),
+      oldYoutube: (build.oldYoutube || []).filter(stringOrFalse),
+      bench: numberOrFalse(build.bench),
+      benchWithAllies: numberOrFalse(build.benchWithAllies),
+      benchLarge: numberOrFalse(build.benchLarge),
+      benchWithAlliesLarge: numberOrFalse(build.benchWithAlliesLarge),
+      benchConfusion: numberOrFalse(build.benchConfusion),
       benchOld: build.benchOld || false
     });
     return formatted;

@@ -230,6 +230,35 @@ const puppeteer = require("puppeteer");
     }
   }
 
+
+  const awBuildOverviewList = ["https://accessibilitywars.com/builds/"];
+
+  for (const awBuildOverview of awBuildOverviewList) {
+    await page.goto(awBuildOverview, {waitUntil: "networkidle2"});
+    const rows = await page.$$eval(".entries-list .list__item a[rel=permalink]", (rows) => rows.map((row) => {
+      const buildUrl = row.href;
+      const benchName = row.textContent;
+      return {
+        benchName,
+        buildUrl
+      };
+    }));
+
+    for (const row of rows) {
+      const plainAwLink = row.buildUrl.replace(/^https:\/\/accessibilitywars\.com/, "");
+      const matchingBuildsByLink = builds.filter((b) => b.accessibilitywars === plainAwLink);
+      if (matchingBuildsByLink.length < 1) {
+        console.log({
+          info: "Missing/invalid AW build",
+          bench: row.benchName,
+          AwLink: row.buildUrl
+        });
+
+        continue;
+      }
+    }
+  }
+
   await browser.close();
 })().catch((err) => {
   console.error(err);
