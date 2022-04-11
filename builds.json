@@ -363,7 +363,7 @@
       "swiftness": false
     },
     "gw2skills": "PGgAw2lJwkYUsLmJOqKrvKA-zRRYmhEikNao+2CjqEorAsPIDR3xPWAQS4gmJcWB-e",
-    "snowcrows": "/builds/elementalist/weaver/hybrid-weaver",
+    "snowcrows": false,
     "luckynoobs": "/builds/hybrid-weaver-dps",
     "hardstuck": false,
     "accessibilitywars": false,
@@ -3413,7 +3413,7 @@
       "swiftness": false
     },
     "gw2skills": "PKABcqdrlFwuYdMOWJm6XWxVA-zxQYhonebbHCKyyo2UoiKwzDSYsHeNU4MC-e",
-    "snowcrows": "/builds/warrior/bladesworn/might-bladesworn",
+    "snowcrows": false,
     "luckynoobs": "/builds/power-bladesworn-might-banner",
     "hardstuck": false,
     "accessibilitywars": false,
