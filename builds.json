@@ -102,7 +102,7 @@
       "swiftness": false
     },
     "gw2skills": "PGgEgEWGBbiRxuYk4o6Y22A-zRJYmRDfZkQC0RBo5BRESAsYDc/jGUcWB-e",
-    "snowcrows": "/builds/elementalist/tempest/condition-tempest",
+    "snowcrows": false,
     "luckynoobs": "/builds/condition-tempest-dps",
     "hardstuck": "/gw2/builds/elementalist/condition-tempest/",
     "accessibilitywars": false,
@@ -1557,7 +1557,7 @@
       "swiftness": false
     },
     "gw2skills": false,
-    "snowcrows": "/builds/engineer/scrapper/power-scrapper",
+    "snowcrows": false,
     "luckynoobs": "/builds/power-scrapper-dps",
     "hardstuck": false,
     "accessibilitywars": false,
@@ -3269,7 +3269,7 @@
     },
     "gw2skills": false,
     "snowcrows": "/builds/warrior/berserker/power-berserker",
-    "luckynoobs": "/builds/power-berserker-banner",
+    "luckynoobs": false,
     "hardstuck": "/gw2/builds/warrior/power-berserker/?v=banners",
     "accessibilitywars": false,
     "youtube": "NkoFpwfcxfw",
@@ -3442,7 +3442,7 @@
       "swiftness": false
     },
     "gw2skills": "PKABcilflFwmYUsNGKO+WWveA-zRIYR8XG1WBVkC2eQCj/Wi4MC-e",
-    "snowcrows": "/builds/warrior/spellbreaker/power-spellbreaker",
+    "snowcrows": false,
     "luckynoobs": "/builds/power-spellbreaker-banner",
     "hardstuck": false,
     "accessibilitywars": false,
@@ -3471,7 +3471,7 @@
       "swiftness": false
     },
     "gw2skills": false,
-    "snowcrows": "/builds/warrior/spellbreaker/power-spellbreaker",
+    "snowcrows": false,
     "luckynoobs": "/builds/power-spellbreaker-banner",
     "hardstuck": false,
     "accessibilitywars": false,
