@@ -156,6 +156,7 @@ const puppeteer = require("puppeteer");
     "https://lucky-noobs.com/klassen/necromancer?category=builds"
   ];
 
+  let fullLnUrls = [];
   for (const lnBuildOverview of lnBuildOverviewList) {
     await page.goto(lnBuildOverview, {waitUntil: "networkidle2"});
     const rows = await page.$$eval(".ln-subnav.ln-build-subnav li a", (rows) => rows.map((row) => {
@@ -166,6 +167,7 @@ const puppeteer = require("puppeteer");
         buildUrl
       };
     }));
+    fullLnUrls = fullLnUrls.concat(rows);
 
     for (const row of rows) {
       const plainLnLink = row.buildUrl.replace(/^https:\/\/lucky-noobs\.com/, "");
@@ -178,6 +180,22 @@ const puppeteer = require("puppeteer");
         });
         continue;
       }
+    }
+  }
+
+  for (const build of builds) {
+    if (!build.luckynoobs) {
+      continue;
+    }
+    const fullLnLink = (new URL(build.luckynoobs, "https://lucky-noobs.com")).href;
+    const matchingBuildsByLink = fullLnUrls.filter((r) => r.buildUrl === fullLnLink);
+    if (matchingBuildsByLink.length < 1) {
+      console.log({
+        info: "LN build not Listed",
+        build: `${build.spec}: ${build.name}`,
+        fullLnLink
+      });
+      continue;
     }
   }
 
