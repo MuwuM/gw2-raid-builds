@@ -199,71 +199,75 @@ const puppeteer = require("puppeteer");
     }
   }
 
-  const hsBuildOverviewListJSON = ["https://beta.hardstuck.gg/api/builds/?gamemode=squad"];
+  const hsBuildOverviewListJSON = ["https://beta.hardstuck.gg/api/hs/v1/builds/?gamemode=squad"];
 
   for (const hsBuildOverviewJson of hsBuildOverviewListJSON) {
     const res = await page.goto(hsBuildOverviewJson, {waitUntil: "networkidle2"});
     const hsBuilds = await res.json();
 
-    for (const row of hsBuilds) {
-      if (row.gamemode !== "Squad") {
-        continue;
-      }
-      const plainHsLink = row.url.replace(/^https:\/\/beta\.hardstuck\.gg/, "");
-      const matchingBuildsByLink = builds.filter((b) => typeof b.hardstuck === "string" && b.hardstuck.startsWith(plainHsLink));
-      if (matchingBuildsByLink.length < 1) {
-        console.log({
-          info: "Missing/invalid HS build",
-          bench: row.name,
-          LnLink: row.url
-        });
-        continue;
-      }
-      const variants = Object.keys(row.variants);
-      for (const variant of variants) {
-        if ([
-          "optimized",
-          "universal",
-          "flexible"
-        ].includes(variant)) {
+    if (Array.isArray(hsBuilds)) {
+      for (const row of hsBuilds) {
+        if (row.gamemode !== "Squad") {
           continue;
         }
-        const matchingBuildsByLink = builds.filter((b) => b.hardstuck === `${plainHsLink}?v=${variant}`);
+        const plainHsLink = row.url.replace(/^https:\/\/beta\.hardstuck\.gg/, "");
+        const matchingBuildsByLink = builds.filter((b) => typeof b.hardstuck === "string" && b.hardstuck.startsWith(plainHsLink));
         if (matchingBuildsByLink.length < 1) {
           console.log({
-            info: "Missing/invalid HS build variant",
+            info: "Missing/invalid HS build",
             bench: row.name,
-            LnLink: `${row.url}?v=${variant}`
+            LnLink: row.url
           });
           continue;
         }
-      }
-    }
-    for (const build of builds) {
-      if (typeof build.hardstuck !== "string") {
-        continue;
-      }
-      const hsUrl = new URL(build.hardstuck, "https://beta.hardstuck.gg");
-      const fullHSLink = hsUrl.href;
-      const variant = hsUrl.searchParams.get("v");
-      const stillExists = hsBuilds.find(((b) => {
-        const u = new URL(b.url, "https://beta.hardstuck.gg");
-        if (u.pathname !== hsUrl.pathname) {
-          return false;
+        const variants = Object.keys(row.variants);
+        for (const variant of variants) {
+          if ([
+            "optimized",
+            "universal",
+            "flexible"
+          ].includes(variant)) {
+            continue;
+          }
+          const matchingBuildsByLink = builds.filter((b) => b.hardstuck === `${plainHsLink}?v=${variant}`);
+          if (matchingBuildsByLink.length < 1) {
+            console.log({
+              info: "Missing/invalid HS build variant",
+              bench: row.name,
+              LnLink: `${row.url}?v=${variant}`
+            });
+            continue;
+          }
         }
+      }
+      for (const build of builds) {
+        if (typeof build.hardstuck !== "string") {
+          continue;
+        }
+        const hsUrl = new URL(build.hardstuck, "https://beta.hardstuck.gg");
+        const fullHSLink = hsUrl.href;
+        const variant = hsUrl.searchParams.get("v");
+        const stillExists = hsBuilds.find(((b) => {
+          const u = new URL(b.url, "https://beta.hardstuck.gg");
+          if (u.pathname !== hsUrl.pathname) {
+            return false;
+          }
 
-        if (variant && typeof b.variants[variant] !== "string") {
-          return false;
+          if (variant && typeof b.variants[variant] !== "string") {
+            return false;
+          }
+          return true;
+        }));
+        if (!stillExists) {
+          console.log({
+            info: "HS build not listed",
+            build: `${build.spec}: ${build.name}`,
+            fullHSLink
+          });
         }
-        return true;
-      }));
-      if (!stillExists) {
-        console.log({
-          info: "HS build not listed",
-          build: `${build.spec}: ${build.name}`,
-          fullHSLink
-        });
       }
+    } else {
+      console.log(hsBuilds);
     }
   }
 
